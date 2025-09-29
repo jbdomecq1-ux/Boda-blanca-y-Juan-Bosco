@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Boda de Juan Bosco & Blanca — 7/11/2025</title>
+    <meta name="description" content="Web de boda — confirmar asistencia, autobuses y cuenta corriente" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React + ReactDOM + Babel (para cargar JSX directamente) -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+      /* tipografía básica */
+      .font-serif { font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif; }
+      .Input { width: 100%; border-radius: 0.75rem; border: 1px solid rgb(203 213 225); padding: 0.5rem 0.75rem; }
+      .Input:focus { outline: none; box-shadow: 0 0 0 2px rgba(100, 116, 139, 0.4); }
+    </style>
+  </head>
+  <body class="min-h-screen bg-gradient-to-b from-white via-slate-50 to-slate-100 text-slate-800">
+    <div id="root"></div>
+    <script type="text/babel" src="app.jsx"></script>
+  </body>
+</html>
