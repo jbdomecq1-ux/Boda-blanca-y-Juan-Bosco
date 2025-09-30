@@ -11,12 +11,20 @@
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
+      body {
+        background-image:
+          linear-gradient(rgba(255,255,255,0.92), rgba(248,250,252,0.92)),
+          url('fondo.png');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+      }
       .font-serif { font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif; }
       .Input { width: 100%; border-radius: 0.75rem; border: 1px solid rgb(203 213 225); padding: 0.5rem 0.75rem; }
       .Input:focus { outline: none; box-shadow: 0 0 0 2px rgba(100, 116, 139, 0.4); }
     </style>
   </head>
-  <body class="min-h-screen bg-gradient-to-b from-white via-slate-50 to-slate-100 text-slate-800">
+  <body class="min-h-screen text-slate-800">
     <div id="root"></div>
 
     <script type="text/babel" data-presets="env,react">
@@ -28,9 +36,10 @@
       const LUGAR_BANQUETE = "Finca La Gaivota · C. Ardales, 18, 28023 Aravaca, Madrid";
       const BUS_DETALLES = "Al finalizar la misa en Los Jerónimos, saldrán autobuses hacia Finca La Gaivota (C. Ardales 18, Aravaca). Regresos desde la finca: 01:30, 03:00 y 05:00 a Plaza del Marqués de Salamanca. A las 05:00 habrá además un minibús a Torrelodones.";
       const FECHA_LIMITE_RSVP = "15 de octubre de 2025";
-      const SEND_MODE = "local";
+      // Privacidad: sin panel de CSV ni resumen público
+      const SEND_MODE = "local"; // Cambiad a "endpoint" y poned una URL privada de Apps Script si queréis centralizar
       const ENDPOINT_URL = "";
-      const IBAN = "ES78 2100 9222 3122 0016 1489";
+      const IBAN = "ES60 0128 0001 6101 0070 9247";
 
       function App() {
         return (
@@ -78,17 +87,10 @@
       function Hero() {
         return (
           <section className="relative overflow-hidden">
-            <div className="pointer-events-none absolute inset-0 -z-10">
-              <div className="absolute -top-40 -right-32 h-96 w-96 rounded-full blur-3xl opacity-20"
-                  style={{ background: "radial-gradient(circle at 30% 30%, #a7f3d0, transparent 60%)" }} />
-              <div className="absolute -bottom-40 -left-32 h-[28rem] w-[28rem] rounded-full blur-3xl opacity-25"
-                  style={{ background: "radial-gradient(circle at 70% 70%, #93c5fd, transparent 60%)" }} />
-            </div>
-
             <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-20 text-center">
-              <p className="uppercase tracking-[0.3em] text-xs text-slate-500">Save the date</p>
+              <p className="uppercase tracking-[0.3em] text-xs text-slate-600">Save the date</p>
               <h1 className="mt-3 font-serif text-5xl md:text-6xl text-slate-900">{NOVIOS}</h1>
-              <p className="mt-4 text-lg text-slate-600">{FECHA_LARGA} · {CIUDAD}</p>
+              <p className="mt-4 text-lg text-slate-700">{FECHA_LARGA} · {CIUDAD}</p>
               <a href="#rsvp" className="inline-block mt-8 rounded-2xl border border-slate-300 px-6 py-3 shadow-sm hover:shadow transition text-slate-800 bg-white">
                 Confirmar asistencia
               </a>
@@ -116,8 +118,8 @@
               <Card label="Banquete/Fiesta" text={LUGAR_BANQUETE} />
               <Card label="Código de vestimenta" text="Elegante (toque de color opcional)" />
             </div>
-            <div className="mt-6 rounded-3xl bg-white p-6 shadow-sm">
-              <p className="text-sm text-slate-600">
+            <div className="mt-6 rounded-3xl bg-white/90 p-6 shadow-sm">
+              <p className="text-sm text-slate-700">
                 <strong>Autobuses:</strong> {BUS_DETALLES}
               </p>
             </div>
@@ -127,7 +129,7 @@
 
       function Card({ label, text }) {
         return (
-          <div className="rounded-3xl bg-white p-6 shadow-sm border border-slate-100">
+          <div className="rounded-3xl bg-white/90 p-6 shadow-sm border border-slate-100">
             <p className="text-xs uppercase tracking-widest text-slate-500">{label}</p>
             <p className="mt-2 font-medium text-slate-800">{text}</p>
           </div>
@@ -149,7 +151,7 @@
               {items.map((it, i) => (
                 <li key={i} className="grid md:grid-cols-[160px_1fr] items-start gap-4 py-4">
                   <div className="text-sm text-slate-500">{it.time}</div>
-                  <div className="relative rounded-2xl bg-white p-5 shadow-sm border border-slate-100">
+                  <div className="relative rounded-2xl bg-white/90 p-5 shadow-sm border border-slate-100">
                     <div className="font-medium text-slate-900">{it.title}</div>
                     <div className="text-slate-600 text-sm">{it.place}</div>
                   </div>
@@ -165,7 +167,7 @@
           <section className="py-14" id="ubicacion">
             <SectionTitle kicker="Cómo llegar" title="Ubicación" subtitle={"Te dejamos mapas para que no te pierdas"} />
             <div className="mt-6 grid gap-6 md:grid-cols-2">
-              <div className="rounded-3xl overflow-hidden border border-slate-200 shadow-sm bg-white">
+              <div className="rounded-3xl overflow-hidden border border-slate-200 shadow-sm bg-white/90">
                 <div className="p-4">
                   <p className="font-medium">Ceremonia</p>
                   <p className="text-sm text-slate-600">{LUGAR_CEREMONIA}</p>
@@ -178,7 +180,7 @@
                   src="https://www.google.com/maps?q=40.4145358,-3.6909801&z=16&output=embed"
                 />
               </div>
-              <div className="rounded-3xl overflow-hidden border border-slate-200 shadow-sm bg-white">
+              <div className="rounded-3xl overflow-hidden border border-slate-200 shadow-sm bg-white/90">
                 <div className="p-4">
                   <p className="font-medium">Finca La Gaivota</p>
                   <p className="text-sm text-slate-600">{LUGAR_BANQUETE}</p>
@@ -201,7 +203,7 @@
           <section className="py-14" id="lista">
             <SectionTitle kicker="Regalo" title="Cuenta corriente" subtitle={"No tenemos lista de bodas. Si queréis tener un detalle, podéis usar esta cuenta."} />
             <div className="mt-6 grid gap-6 md:grid-cols-3">
-              <div className="rounded-3xl bg-white p-6 shadow-sm border border-slate-100 flex flex-col">
+              <div className="rounded-3xl bg-white/90 p-6 shadow-sm border border-slate-100 flex flex-col">
                 <div className="font-medium text-slate-900">Cuenta corriente</div>
                 <div className="text-sm text-slate-600 mt-1 flex-1">Gracias por vuestro cariño ❤️</div>
                 <div className="mt-3 text-sm text-slate-700 break-all">
@@ -220,7 +222,7 @@
             <SectionTitle kicker="¡Nos hará ilusión verte!" title="Confirmar asistencia" subtitle={`Por favor, responde antes del ${FECHA_LIMITE_RSVP}.`} />
             <div className="mt-8 grid gap-6 md:grid-cols-2">
               <FormCard />
-              <ResponsesCard />
+              {/* Resumen/CSV retirado por privacidad */}
             </div>
           </section>
         );
@@ -237,8 +239,8 @@
 
       function validate(f) {
         if (!f.nombre.trim()) throw new Error("Por favor, indica tu nombre.");
-        if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(f.email)) throw new Error("Email no válido.");
-        if (f.telefono.replace(/\\D/g, "").length < 6) throw new Error("Indica un teléfono válido.");
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email)) throw new Error("Email no válido.");
+        if (f.telefono.replace(/\D/g, "").length < 6) throw new Error("Indica un teléfono válido.");
         if (f.acompanante === "si" && !f.nombreAcompanante.trim()) throw new Error("Indica el nombre del acompañante.");
       }
 
@@ -278,6 +280,7 @@
               });
               if (!res.ok) throw new Error("No se pudo enviar el formulario");
             } else {
+              // Local para pruebas; no se comparte públicamente
               const key = "rsvp_responses";
               const prev = JSON.parse(localStorage.getItem(key) || "[]");
               prev.push({ ...form, timestamp: new Date().toISOString() });
@@ -303,7 +306,7 @@
         };
 
         return (
-          <div className="rounded-3xl bg-white p-6 shadow-sm border border-slate-100">
+          <div className="rounded-3xl bg-white/90 p-6 shadow-sm border border-slate-100">
             <form onSubmit={handleSubmit} className="grid gap-4">
               <Field label="Nombre y apellidos" required>
                 <input name="nombre" value={form.nombre} onChange={handleChange} className="Input" placeholder="Tu nombre" />
@@ -362,72 +365,10 @@
                 </div>
               )}
 
-              <button disabled={submitting} className="inline-flex items-center justify-center rounded-2xl bg-slate-900 text-white px-5 py-3 hover:opacity-90 disabled:opacity-50">
+              <button disabled={submitting} className="inline-flex items-center justify-center rounded-2xl bg-slate-900 text-white px-5 py-3 hover:opacity-90 disabled:opacity-50" onClick={handleSubmit}>
                 {submitting ? "Enviando…" : "Enviar"}
               </button>
             </form>
-          </div>
-        );
-      }
-
-      function summarize(rows) {
-        const s = { si: 0, no: 0, acompanante_si: 0, autobus_ida: 0, autobus_vuelta: 0, autobus_iyv: 0, autobus_no: 0 };
-        for (const r of rows) {
-          if (r.asistencia === "si") s.si++; else s.no++;
-          if (r.acompanante === "si") s.acompanante_si++;
-          if (r.autobus === "ida") s.autobus_ida++;
-          if (r.autobus === "vuelta") s.autobus_vuelta++;
-          if (r.autobus === "ida_y_vuelta") s.autobus_iyv++;
-          if (r.autobus === "no") s.autobus_no++;
-        }
-        return s;
-      }
-
-      function ResponsesCard() {
-        const [rows, setRows] = React.useState([]);
-
-        React.useEffect(() => {
-          const key = "rsvp_responses";
-          const prev = JSON.parse(localStorage.getItem(key) || "[]");
-          setRows(prev);
-          const onStorage = () => {
-            const p = JSON.parse(localStorage.getItem(key) || "[]");
-            setRows(p);
-          };
-          window.addEventListener("storage", onStorage);
-          return () => window.removeEventListener("storage", onStorage);
-        }, []);
-
-        const counts = React.useMemo(() => summarize(rows), [rows]);
-
-        const downloadCSV = () => {
-          const headers = [
-            "timestamp","nombre","email","telefono","asistencia","acompanante","nombreAcompanante","autobus","alergias","notas",
-          ];
-          const esc = (v) => '"' + String(v ?? "").replaceAll('"', '""') + '"';
-          const csv = [headers.join(",")]
-            .concat(rows.map(r => headers.map(h => esc(r[h])).join(",")))
-            .join("\n");
-          const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = "rsvp_respuestas.csv";
-          a.click();
-          URL.revokeObjectURL(url);
-        };
-
-        return (
-          <div className="rounded-3xl bg-white p-6 shadow-sm border border-slate-100">
-            <p className="font-medium text-slate-900">Resumen (local)</p>
-            <ul className="mt-3 text-sm text-slate-700 space-y-1">
-              <li><strong>Total respuestas:</strong> {rows.length}</li>
-              <li><strong>Asisten:</strong> {counts.si} · <strong>No asisten:</strong> {counts.no}</li>
-              <li><strong>Con acompañante:</strong> {counts.acompanante_si}</li>
-              <li><strong>Autobús</strong> — Ida: {counts.autobus_ida} · Vuelta: {counts.autobus_vuelta} · Ida y vuelta: {counts.autobus_iyv} · No: {counts.autobus_no}</li>
-            </ul>
-            <button onClick={downloadCSV} className="mt-4 inline-flex items-center rounded-xl border border-slate-300 px-4 py-2 text-sm hover:shadow bg-white">Descargar CSV</button>
-            <p className="mt-2 text-xs text-slate-500">*Este panel muestra solo lo guardado en <em>tu navegador</em>. Para centralizar respuestas, usa un endpoint (Google Sheets / App Script).</p>
           </div>
         );
       }
@@ -443,7 +384,7 @@
             <SectionTitle kicker="Dudas" title="Preguntas frecuentes" />
             <div className="mt-6 grid gap-4">
               {items.map((it, i) => (
-                <details key={i} className="group rounded-2xl bg-white border border-slate-200 p-5 shadow-sm">
+                <details key={i} className="group rounded-2xl bg-white/90 border border-slate-200 p-5 shadow-sm">
                   <summary className="cursor-pointer font-medium text-slate-900 list-none flex items-center justify-between">
                     <span>{it.q}</span>
                     <span className="text-slate-400 group-open:rotate-180 transition">⌄</span>
